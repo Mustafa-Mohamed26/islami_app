@@ -15,4 +15,7 @@ class AppAssets {
   static const String logo = 'assets/images/Logo.png';
   static const String mostRecently = 'assets/images/most_recently_image.png';
   static const String vectorImage = 'assets/images/vector_image.png';
+  static const String detailsLeftBg = 'assets/images/details_left_bg.png';
+  static const String detailsRightBg = 'assets/images/details_right_bg.png';
+  static const String mousqueBg = 'assets/images/mousque_bg.png';
 }
