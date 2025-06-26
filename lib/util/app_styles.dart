@@ -40,5 +40,10 @@ class AppStyles {
     fontWeight: FontWeight.bold,
     color: AppColor.primaryColor,
   );
+  static TextStyle bold36white = GoogleFonts.elMessiri(
+    fontSize: 36,
+    fontWeight: FontWeight.bold,
+    color: AppColor.whiteColor,
+  );
   
 }
