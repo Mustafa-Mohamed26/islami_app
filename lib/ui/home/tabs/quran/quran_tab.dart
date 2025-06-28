@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:islami_app/ui/home/tabs/quran/sura_details_screen.dart';
+import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_2.dart';
+import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_1.dart';
 import 'package:islami_app/ui/home/tabs/quran/sura_item.dart';
 import 'package:islami_app/util/app_assets.dart';
 import 'package:islami_app/util/app_color.dart';
@@ -85,7 +86,7 @@ class QuranTab extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     Navigator.of(context).pushNamed(
-                      SuraDetailsScreen.routeName,
+                      SuraDetailsScreen1.routeName,
                       arguments: index,
                     );
                   },

@@ -6,16 +6,16 @@ import 'package:islami_app/util/app_assets.dart';
 import 'package:islami_app/util/app_color.dart';
 import 'package:islami_app/util/app_styles.dart';
 
-class SuraDetailsScreen extends StatefulWidget {
+class SuraDetailsScreen2 extends StatefulWidget {
   static const String routeName = 'suraDetails';
 
-  SuraDetailsScreen({super.key});
+  SuraDetailsScreen2({super.key});
 
   @override
-  State<SuraDetailsScreen> createState() => _SuraDetailsScreenState();
+  State<SuraDetailsScreen2> createState() => _SuraDetailsScreenState();
 }
 
-class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
+class _SuraDetailsScreenState extends State<SuraDetailsScreen2> {
   //List<String> verses = [];
   String suraContent = '';
 
@@ -30,7 +30,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
     );
     List<String> lines = fileContent.split('\n');
     for (var i = 0; i < lines.length; i++) {
-      lines[i]+= '[${i+1}]';
+      lines[i]+= ' [${i+1}] ';
     }
     suraContent = lines.join();
     //verses = lines;
