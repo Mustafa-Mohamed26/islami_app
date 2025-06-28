@@ -19,4 +19,8 @@ class AppAssets {
   static const String detailsRightBg = 'assets/images/details_right_bg.png';
   static const String mousqueBg = 'assets/images/mousque_bg.png';
   static const String sebha = 'assets/images/Sebha.png';
+  static const String corner1 = 'assets/images/Cornerr 1.png';
+  static const String corner2 = 'assets/images/Cornerr 2.png';
+  static const String hadethCardBackground = 'assets/images/HadithCardBackGround 1.png';
+  static const String hadethMosque = 'assets/images/Mosque-02 2.png';
 }
