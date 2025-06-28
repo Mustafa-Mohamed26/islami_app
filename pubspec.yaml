@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^6.2.1
   shared_preferences: ^2.5.3
   provider: ^6.1.5
+  carousel_slider: ^5.1.1
 
 
 dev_dependencies:
@@ -67,6 +68,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/files/
+    - assets/Hadeeth/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
