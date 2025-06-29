@@ -23,4 +23,5 @@ class AppAssets {
   static const String corner2 = 'assets/images/Cornerr 2.png';
   static const String hadethCardBackground = 'assets/images/HadithCardBackGround 1.png';
   static const String hadethMosque = 'assets/images/Mosque-02 2.png';
+  static const String soundWave = "assets/images/SoundWave.png";
 }
