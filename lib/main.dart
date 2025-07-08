@@ -3,6 +3,7 @@ import 'package:islami_app/providers/most_recent_provider.dart';
 import 'package:islami_app/ui/home/home_screen.dart';
 import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_2.dart';
 import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_1.dart';
+import 'package:islami_app/ui/onboarding/onboarding_screen.dart';
 import 'package:islami_app/util/app_theme.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +22,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Islami App', 
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: OnboardingScreen.routeName,
       routes: {
+        OnboardingScreen.routeName: (context) => OnboardingScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
         SuraDetailsScreen1.routeName: (context) => SuraDetailsScreen1(),
         SuraDetailsScreen2.routeName: (context) => SuraDetailsScreen2(),
