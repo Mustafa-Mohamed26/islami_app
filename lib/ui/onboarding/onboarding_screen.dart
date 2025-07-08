@@ -6,6 +6,7 @@ import 'package:islami_app/ui/home/tabs/hadeth/hadeth_item.dart';
 import 'package:islami_app/util/app_assets.dart';
 import 'package:islami_app/util/app_color.dart';
 import 'package:islami_app/util/app_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static const routeName = 'onboarding';
@@ -18,14 +19,15 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd(context) {
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
-  }
-
   Widget _buildImage(String assetName, [double width = 350]) {
     return Image.asset('$assetName', width: width);
+  }
+
+  Future<void> _completeOnboarding(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('seenOnboarding', true);
+
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 
   @override
@@ -94,8 +96,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           decoration: pageDecoration,
         ),
       ],
-      onDone: () => _onIntroEnd(context),
-      onSkip: () => _onIntroEnd(context), // You can override onSkip callback
+      onDone: () => _completeOnboarding(context),
+      onSkip: () => _completeOnboarding(context), // You can override onSkip callback
       showSkipButton: false,
       skipOrBackFlex: 0,
       nextFlex: 0,
