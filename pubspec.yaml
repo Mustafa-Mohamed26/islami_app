@@ -39,6 +39,9 @@ dependencies:
   shared_preferences: ^2.5.3
   provider: ^6.1.5
   carousel_slider: ^5.1.1
+  http: ^1.5.0
+  just_audio: ^0.10.5
+  flutter_bloc: ^9.1.1
 
 
 dev_dependencies:

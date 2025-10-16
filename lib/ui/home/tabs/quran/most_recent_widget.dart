@@ -4,7 +4,6 @@ import 'package:islami_app/ui/home/tabs/quran/quran_resources.dart';
 import 'package:islami_app/util/app_assets.dart';
 import 'package:islami_app/util/app_color.dart';
 import 'package:islami_app/util/app_styles.dart';
-import 'package:islami_app/util/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
 class MostRecentWidget extends StatefulWidget {

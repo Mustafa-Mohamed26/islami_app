@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islami_app/providers/most_recent_provider.dart';
+import 'package:islami_app/providers/radio_manager_provider.dart';
 import 'package:islami_app/ui/home/home_screen.dart';
 import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_2.dart';
 import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_1.dart';
+import 'package:islami_app/ui/home/tabs/radio/cubit/radio_view_model.dart';
 import 'package:islami_app/util/app_theme.dart';
 import 'package:provider/provider.dart';
 
-void main(){
-  runApp( ChangeNotifierProvider(
-    create: (context) => MostRecentProvider(),
-    child: MyApp(),
-  ));
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => RadioMangerProvider()),
+        ChangeNotifierProvider(create: (_) => MostRecentProvider()),
+      ],
+      child: BlocProvider(
+        create: (_) => RadioViewModel()..getRadio(),
+        child: const MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

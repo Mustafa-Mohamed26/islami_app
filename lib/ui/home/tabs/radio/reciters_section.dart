@@ -20,6 +20,7 @@ class _RecitersSectionState extends State<RecitersSection> {
           return RadioItem(
             isPlaying: playingIndex == index,
             isMuted: mutedIndex == index,
+            name: 'Reciter ${index + 1}',
             onPlay: () {
               setState(() {
                 if (playingIndex == index) {
