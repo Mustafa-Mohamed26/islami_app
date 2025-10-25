@@ -7,7 +7,7 @@ import 'package:islami_app/util/app_styles.dart';
 import 'package:provider/provider.dart';
 
 class MostRecentWidget extends StatefulWidget {
-  MostRecentWidget({super.key});
+  const MostRecentWidget({super.key});
 
   @override
   State<MostRecentWidget> createState() => _MostRecentWidgetState();
@@ -17,7 +17,6 @@ class _MostRecentWidgetState extends State<MostRecentWidget> {
   late MostRecentProvider mostRecentProvider;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // Load the most recent sura list after the first frame is rendered
     WidgetsBinding.instance.addPostFrameCallback((_) {

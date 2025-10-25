@@ -17,7 +17,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => MostRecentProvider()),
       ],
       child: BlocProvider(
-        create: (_) => RadioViewModel()..getRadio(),
+        create: (_) => RadioViewModel(),
         child: const MyApp(),
       ),
     ),

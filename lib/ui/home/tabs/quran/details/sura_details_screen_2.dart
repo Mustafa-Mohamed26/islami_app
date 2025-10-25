@@ -9,7 +9,7 @@ import 'package:islami_app/util/app_styles.dart';
 class SuraDetailsScreen2 extends StatefulWidget {
   static const String routeName = 'suraDetails';
 
-  SuraDetailsScreen2({super.key});
+  const SuraDetailsScreen2({super.key});
 
   @override
   State<SuraDetailsScreen2> createState() => _SuraDetailsScreenState();
@@ -46,8 +46,6 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen2> {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
     int index = ModalRoute.of(context)?.settings.arguments as int;
     if (suraContent.isEmpty) {
       loadSuraFile(index);

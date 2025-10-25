@@ -31,6 +31,12 @@ class _RadioSectionState extends State<RadioSection> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<RadioViewModel>(context).getRadio();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final radioManager = Provider.of<RadioMangerProvider>(context);
     final viewModel = BlocProvider.of<RadioViewModel>(context);

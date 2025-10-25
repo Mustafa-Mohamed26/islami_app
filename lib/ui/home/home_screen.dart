@@ -10,7 +10,7 @@ import 'package:islami_app/util/app_color.dart';
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'home';
 
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

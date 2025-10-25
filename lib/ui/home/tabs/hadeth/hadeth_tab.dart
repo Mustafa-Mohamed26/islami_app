@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:islami_app/ui/home/tabs/hadeth/hadeth_item.dart';
@@ -9,7 +8,6 @@ class HadethTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var hight = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.only(bottom: hight * 0.03),
       child: CarouselSlider(
