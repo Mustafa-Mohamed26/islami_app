@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islami_app/providers/most_recent_provider.dart';
+import 'package:islami_app/providers/radio_manager_provider.dart';
 import 'package:islami_app/ui/home/home_screen.dart';
 import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_2.dart';
 import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_1.dart';
+import 'package:islami_app/ui/home/tabs/radio/cubit/radio_view_model.dart';
 import 'package:islami_app/ui/onboarding/onboarding_screen.dart';
 import 'package:islami_app/util/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final prefs = await SharedPreferences.getInstance();
   final seenOnboarding = prefs.getBool('seenOnboarding') ?? false;
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => MostRecentProvider(),
-      child: MyApp(showOnboarding: !seenOnboarding),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => RadioMangerProvider()),
+        ChangeNotifierProvider(create: (_) => MostRecentProvider()),
+      ],
+      child: BlocProvider(
+        create: (_) => RadioViewModel(),
+        child: MyApp(showOnboarding: !seenOnboarding),
+      ),
     ),
   );
 }

@@ -42,7 +42,6 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     mostRecentProvider.getMostRecentSuraList();
   }
@@ -52,7 +51,6 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
   @override
   Widget build(BuildContext context) {
     int index = ModalRoute.of(context)?.settings.arguments as int;
-    var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     mostRecentProvider = Provider.of<MostRecentProvider>(context);
     if (verses.isEmpty) {
