@@ -21,7 +21,17 @@ class AppAssets {
   static const String sebha = 'assets/images/Sebha.png';
   static const String corner1 = 'assets/images/Cornerr 1.png';
   static const String corner2 = 'assets/images/Cornerr 2.png';
-  static const String hadethCardBackground = 'assets/images/HadithCardBackGround 1.png';
+  static const String hadethCardBackground =
+      'assets/images/HadithCardBackGround 1.png';
   static const String hadethMosque = 'assets/images/Mosque-02 2.png';
   static const String soundWave = "assets/images/SoundWave.png";
+  static const String evening = "assets/images/Evening.png";
+  static const String morning = "assets/images/morning.png";
+
+  // onboarding images
+  static const String onboarding1 = 'assets/images/onboarding1.png';
+  static const String onboarding2 = 'assets/images/onboarding2.png';
+  static const String onboarding3 = 'assets/images/onboarding3.png';
+  static const String onboarding4 = 'assets/images/onboarding4.png';
+  static const String onboarding5 = 'assets/images/onboarding5.png';
 }
