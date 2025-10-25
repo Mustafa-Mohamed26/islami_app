@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'dart:ui';
 
 import 'package:flutter/src/painting/text_style.dart';
