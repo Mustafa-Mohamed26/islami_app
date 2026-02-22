@@ -38,6 +38,7 @@ class TimeTab extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
                         flex: 1,
@@ -47,6 +48,17 @@ class TimeTab extends StatelessWidget {
                           textAlign: TextAlign.left,
                         ),
                       ),
+                      Container(
+                        width: width * 0.06,
+                        height: height * 0.04,
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40.0),
+                          ),
+                        ),
+                      ),
+
                       Expanded(
                         flex: 2,
                         child: Container(
@@ -54,14 +66,24 @@ class TimeTab extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: AppColor.primaryColor,
                             borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30.0),
-                              topRight: Radius.circular(30.0),
+                              topLeft: Radius.circular(40.0),
+                              topRight: Radius.circular(40.0),
                             ),
                           ),
                           child: Text(
                             "Pray Time\nTuesday",
                             style: AppStyles.bold20Black,
                             textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: width * 0.06,
+                        height: height * 0.04,
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(40.0),
                           ),
                         ),
                       ),
