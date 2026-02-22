@@ -11,7 +11,7 @@ import 'package:islami_app/util/shared_prefs.dart';
 //TODO: search on flutter keys
 class QuranTab extends StatefulWidget {
   /// 114 suras in Quran
-  QuranTab({super.key});
+  const QuranTab({super.key});
   @override
   State<QuranTab> createState() => _QuranTabState();
 }

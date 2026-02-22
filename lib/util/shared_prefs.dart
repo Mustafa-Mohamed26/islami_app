@@ -1,5 +1,5 @@
-//TODO: save last sura => write data to shared preferences
-//TODO: get last sura => read data from shared preferences
+//save last sura => write data to shared preferences
+//get last sura => read data from shared preferences
 
 
 import 'package:shared_preferences/shared_preferences.dart';

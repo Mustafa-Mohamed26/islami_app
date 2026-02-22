@@ -35,7 +35,7 @@ class SuraContentItem extends StatelessWidget {
           ),
         ),
         child: Text(
-          "${suraContent} [${index + 1}]",
+          "$suraContent [${index + 1}]",
           style: AppStyles.bold20Primary.copyWith(
             color: isSelected ? AppColor.blackColor : AppColor.primaryColor,
           ),

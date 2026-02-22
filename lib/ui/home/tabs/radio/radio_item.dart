@@ -5,11 +5,13 @@ import 'package:islami_app/util/app_styles.dart';
 
 typedef OnPlay = void Function();
 typedef OnMute = void Function();
+
 class RadioItem extends StatelessWidget {
   final bool isPlaying;
   final bool isMuted;
   final OnPlay onPlay;
   final OnMute onMute;
+  final String name;
 
   const RadioItem({
     super.key,
@@ -17,15 +19,18 @@ class RadioItem extends StatelessWidget {
     required this.isMuted,
     required this.onPlay,
     required this.onMute,
+    required this.name,
   });
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+
     return Container(
       width: double.infinity,
-      height: height * 0.13,
+      // Increased height a bit to avoid overflow
+      height: height * 0.16,
       margin: EdgeInsets.symmetric(
         horizontal: width * 0.04,
         vertical: height * 0.01,
@@ -40,29 +45,46 @@ class RadioItem extends StatelessWidget {
           fit: BoxFit.fill,
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("Radio ", style: AppStyles.bold20Black),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(width: width * 0.1),
-              IconButton(
-                onPressed: onPlay,
-                icon: isPlaying
-                    ? Icon(Icons.pause, size: 50, color: AppColor.blackColor)
-                    : Icon(Icons.play_arrow_rounded, size: 50, color: AppColor.blackColor),
+      child: Padding(
+        // Added padding inside the container for breathing space
+        padding: EdgeInsets.symmetric(vertical: height * 0.01),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min, // Prevents unnecessary stretching
+          children: [
+            Flexible(
+              child: Text(
+                name,
+                style: AppStyles.bold20Black,
+                overflow: TextOverflow.ellipsis, // Prevent text overflow
+                textAlign: TextAlign.center,
               ),
-              IconButton(
-                onPressed: onMute,
-                icon: isMuted
-                    ? Icon(Icons.volume_off, size: 30, color: AppColor.blackColor)
-                    : Icon(Icons.volume_up, size: 30, color: AppColor.blackColor),
-              ),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(height: height * 0.005),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: width * 0.1),
+                IconButton(
+                  onPressed: onPlay,
+                  icon: Icon(
+                    isPlaying ? Icons.pause : Icons.play_arrow_rounded,
+                    size: 50,
+                    color: AppColor.blackColor,
+                  ),
+                ),
+                IconButton(
+                  onPressed: onMute,
+                  icon: Icon(
+                    isMuted ? Icons.volume_off : Icons.volume_up,
+                    size: 30,
+                    color: AppColor.blackColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

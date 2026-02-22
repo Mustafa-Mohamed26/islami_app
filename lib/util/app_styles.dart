@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'dart:ui';
 
 import 'package:flutter/src/painting/text_style.dart';
@@ -54,6 +56,11 @@ class AppStyles {
     fontSize: 16,
     fontWeight: FontWeight.bold,
     color: AppColor.blackColor,
+  );
+  static TextStyle bold16Primary = GoogleFonts.elMessiri(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: AppColor.primaryColor,
   );
   
 }

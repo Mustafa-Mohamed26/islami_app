@@ -27,4 +27,11 @@ class AppAssets {
   static const String soundWave = "assets/images/SoundWave.png";
   static const String evening = "assets/images/Evening.png";
   static const String morning = "assets/images/morning.png";
+
+  // onboarding images
+  static const String onboarding1 = 'assets/images/onboarding1.png';
+  static const String onboarding2 = 'assets/images/onboarding2.png';
+  static const String onboarding3 = 'assets/images/onboarding3.png';
+  static const String onboarding4 = 'assets/images/onboarding4.png';
+  static const String onboarding5 = 'assets/images/onboarding5.png';
 }
