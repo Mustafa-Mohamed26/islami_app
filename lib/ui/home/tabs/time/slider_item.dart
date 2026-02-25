@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:islami_app/model/time_model.dart';
 import 'package:islami_app/util/app_color.dart';
 import 'package:islami_app/util/app_styles.dart';
+import 'package:islami_app/util/date_formatter.dart';
 
 class SliderItem extends StatelessWidget {
-  TimeModel prayer;
-  SliderItem({super.key, required this.prayer});
+  String name;
+  String time;
+  TimeModel? prayer;
+  SliderItem({super.key,  this.prayer, required this.name, required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +28,11 @@ class SliderItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(prayer.name, style: AppStyles.bold16White),
-          Text(prayer.time, style: AppStyles.bold20White),
-          Text(prayer.period, style: AppStyles.bold16White),
+          Text(name, style: AppStyles.bold16White),
+          Text(TimeConverter.to12Hour(time), style: AppStyles.bold20White),
+          
         ],
       ),
     );
-    ;
   }
 }
