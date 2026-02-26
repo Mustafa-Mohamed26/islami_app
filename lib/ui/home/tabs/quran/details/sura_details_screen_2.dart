@@ -30,7 +30,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen2> {
     );
     List<String> lines = fileContent.split('\n');
     for (var i = 0; i < lines.length; i++) {
-      lines[i]+= ' [${i+1}] ';
+      lines[i] += ' [${i + 1}] ';
     }
     suraContent = lines.join();
     //verses = lines;
@@ -51,44 +51,57 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen2> {
       loadSuraFile(index);
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          QuranResources.englishQuranList[index],
-          style: AppStyles.bold20Primary,
-        ),
-      ),
+      appBar: _buildAppBar(index),
       body: Container(
         color: AppColor.blackBgColor,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(AppAssets.detailsLeftBg),
-                  Text(
-                    QuranResources.arabicQuranList[index],
-                    style: AppStyles.bold24Primary,
-                  ),
-                  Image.asset(AppAssets.detailsRightBg),
-                ],
-              ),
-            ),
-            Expanded(
-              child: suraContent.isEmpty
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        color: AppColor.primaryColor,
-                      ),
-                    )
-                  : SingleChildScrollView(child: SuraContent(suraContent: suraContent))
-            ),
-             Image.asset(AppAssets.mousqueBg)
+            _buildSuraHeader(index),
+            _buildSuraContent(),
+            _buildMosqueBackground(),
           ],
-         
         ),
       ),
     );
+  }
+
+  PreferredSizeWidget _buildAppBar(int index) {
+    return AppBar(
+      title: Text(
+        QuranResources.englishQuranList[index],
+        style: AppStyles.bold20Primary,
+      ),
+    );
+  }
+
+  Widget _buildSuraHeader(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(AppAssets.detailsLeftBg),
+          Text(
+            QuranResources.arabicQuranList[index],
+            style: AppStyles.bold24Primary,
+          ),
+          Image.asset(AppAssets.detailsRightBg),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSuraContent() {
+    return Expanded(
+      child: suraContent.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(color: AppColor.primaryColor),
+            )
+          : SingleChildScrollView(child: SuraContent(suraContent: suraContent)),
+    );
+  }
+
+  Widget _buildMosqueBackground() {
+    return Image.asset(AppAssets.mousqueBg);
   }
 }

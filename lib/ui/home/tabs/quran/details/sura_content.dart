@@ -9,12 +9,16 @@ class SuraContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(18.0),
-      child: Text(
-        suraContent,
-        textDirection: TextDirection.rtl, 
-        textAlign: TextAlign.center,
-        style: AppStyles.bold20Primary,
-      ),
+      child: _buildTextContent(),
+    );
+  }
+
+  Widget _buildTextContent() {
+    return Text(
+      suraContent,
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.center,
+      style: AppStyles.bold20Primary,
     );
   }
 }

@@ -46,8 +46,6 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
     mostRecentProvider.getMostRecentSuraList();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     int index = ModalRoute.of(context)?.settings.arguments as int;
@@ -57,68 +55,84 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
       loadSuraFile(index);
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          QuranResources.englishQuranList[index],
-          style: AppStyles.bold20Primary,
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.menu_book, size: 30),
-            tooltip: 'Go to Sura Details 2',
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                SuraDetailsScreen2.routeName,
-                arguments: index,
-              );
-            },
-          ),
-        ],
-      ),
+      appBar: _buildAppBar(context, index),
       body: Container(
         color: AppColor.blackBgColor,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(AppAssets.detailsLeftBg),
-                  Text(
-                    QuranResources.arabicQuranList[index],
-                    style: AppStyles.bold24Primary,
-                  ),
-                  Image.asset(AppAssets.detailsRightBg),
-                ],
-              ),
-            ),
-            Expanded(
-              child: verses.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : ListView.separated(
-                      itemCount: verses.length,
-                      itemBuilder: (context, verseIndex) {
-                        return SuraContentItem(
-                          suraContent: verses[verseIndex],
-                          index: verseIndex,
-                          isSelected: selectedIndex == verseIndex,
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = verseIndex;
-                            });
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: height * 0.02),
-                    ),
-            ),
-            Image.asset(AppAssets.mousqueBg),
+            _buildSuraHeader(index),
+            _buildVersesList(height),
+            _buildMosqueBackground(),
           ],
         ),
       ),
     );
+  }
+
+  PreferredSizeWidget _buildAppBar(BuildContext context, int index) {
+    return AppBar(
+      title: Text(
+        QuranResources.englishQuranList[index],
+        style: AppStyles.bold20Primary,
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.menu_book, size: 30),
+          tooltip: 'Go to Sura Details 2',
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              SuraDetailsScreen2.routeName,
+              arguments: index,
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSuraHeader(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(AppAssets.detailsLeftBg),
+          Text(
+            QuranResources.arabicQuranList[index],
+            style: AppStyles.bold24Primary,
+          ),
+          Image.asset(AppAssets.detailsRightBg),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVersesList(double height) {
+    return Expanded(
+      child: verses.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.separated(
+              itemCount: verses.length,
+              itemBuilder: (context, verseIndex) {
+                return SuraContentItem(
+                  suraContent: verses[verseIndex],
+                  index: verseIndex,
+                  isSelected: selectedIndex == verseIndex,
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = verseIndex;
+                    });
+                  },
+                );
+              },
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: height * 0.02),
+            ),
+    );
+  }
+
+  Widget _buildMosqueBackground() {
+    return Image.asset(AppAssets.mousqueBg);
   }
 }

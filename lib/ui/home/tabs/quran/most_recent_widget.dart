@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/providers/most_recent_provider.dart';
+import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_1.dart';
 import 'package:islami_app/ui/home/tabs/quran/quran_resources.dart';
 import 'package:islami_app/util/app_assets.dart';
 import 'package:islami_app/util/app_color.dart';
 import 'package:islami_app/util/app_styles.dart';
+import 'package:islami_app/util/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
 class MostRecentWidget extends StatefulWidget {
@@ -22,7 +24,6 @@ class _MostRecentWidgetState extends State<MostRecentWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       mostRecentProvider.getMostRecentSuraList();
     });
-    
   }
 
   @override
@@ -36,53 +37,73 @@ class _MostRecentWidgetState extends State<MostRecentWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Most Recently Read', style: AppStyles.bold16White),
+          _buildHeader(),
           SizedBox(height: height * 0.01),
-          SizedBox(
-            height: height * 0.16,
-            width: double.infinity,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                  decoration: BoxDecoration(
-                    color: AppColor.primaryColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            QuranResources.englishQuranList[mostRecentProvider
-                                .mostRecentList[index]],
-                            style: AppStyles.bold24Black,
-                          ),
-                          Text(
-                            QuranResources.arabicQuranList[mostRecentProvider
-                                .mostRecentList[index]],
-                            style: AppStyles.bold24Black,
-                          ),
-                          Text(
-                            "${QuranResources.versesNumberList[mostRecentProvider.mostRecentList[index]]} Verses",
-                            style: AppStyles.bold14black,
-                          ),
-                        ],
-                      ),
-                      Image.asset(AppAssets.mostRecently),
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) =>
-                  SizedBox(width: width * 0.02),
-              itemCount: mostRecentProvider.mostRecentList.length,
-            ),
-          ),
+          _buildRecentList(width, height),
         ],
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Text('Most Recently Read', style: AppStyles.bold16White);
+  }
+
+  Widget _buildRecentList(double width, double height) {
+    return SizedBox(
+      height: height * 0.16,
+      width: double.infinity,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return _buildRecentItem(context, index, width);
+        },
+        separatorBuilder: (context, index) => SizedBox(width: width * 0.02),
+        itemCount: mostRecentProvider.mostRecentList.length,
+      ),
+    );
+  }
+
+  Widget _buildRecentItem(BuildContext context, int index, double width) {
+    int suraIndex = mostRecentProvider.mostRecentList[index];
+    return InkWell(
+      onTap: () {
+        // Save the last sura index to shared preferences
+        saveNewSuraList(suraIndex);
+        // Navigate to Sura Details Screen with the selected sura index
+        Navigator.of(
+          context,
+        ).pushNamed(SuraDetailsScreen1.routeName, arguments: suraIndex);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+        decoration: BoxDecoration(
+          color: AppColor.primaryColor,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  QuranResources.englishQuranList[suraIndex],
+                  style: AppStyles.bold24Black,
+                ),
+                Text(
+                  QuranResources.arabicQuranList[suraIndex],
+                  style: AppStyles.bold24Black,
+                ),
+                Text(
+                  "${QuranResources.versesNumberList[suraIndex]} Verses",
+                  style: AppStyles.bold14black,
+                ),
+              ],
+            ),
+            Image.asset(AppAssets.mostRecently),
+          ],
+        ),
       ),
     );
   }

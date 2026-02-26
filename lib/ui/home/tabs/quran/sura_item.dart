@@ -12,28 +12,45 @@ class SuraItem extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return Row(
       children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Image.asset(AppAssets.vectorImage),
-            Text('${index + 1}', style: AppStyles.bold16White),
-          ],
-        ),
+        _buildSuraNumber(),
         SizedBox(width: width * 0.04),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              QuranResources.englishQuranList[index],
-              style: AppStyles.bold20White
-            ),
-            Text('${QuranResources.versesNumberList[index]} verses', style: AppStyles.bold14White),
-          ],
-        ),
+        _buildSuraDetails(),
         const Spacer(),
-        Text(QuranResources.arabicQuranList[index], style: AppStyles.bold20White),
+        _buildSuraArabicName(),
       ],
     );
   }
-}
 
+  Widget _buildSuraNumber() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Image.asset(AppAssets.vectorImage),
+        Text('${index + 1}', style: AppStyles.bold16White),
+      ],
+    );
+  }
+
+  Widget _buildSuraDetails() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          QuranResources.englishQuranList[index],
+          style: AppStyles.bold20White,
+        ),
+        Text(
+          '${QuranResources.versesNumberList[index]} verses',
+          style: AppStyles.bold14White,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSuraArabicName() {
+    return Text(
+      QuranResources.arabicQuranList[index],
+      style: AppStyles.bold20White,
+    );
+  }
+}
