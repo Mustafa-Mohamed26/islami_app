@@ -6,6 +6,7 @@ import 'package:islami_app/ui/home/home_screen.dart';
 import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_2.dart';
 import 'package:islami_app/ui/home/tabs/quran/details/sura_details_screen_1.dart';
 import 'package:islami_app/ui/home/tabs/radio/cubit/radio_view_model.dart';
+import 'package:islami_app/ui/home/tabs/time/cubit/time_view_model.dart';
 import 'package:islami_app/ui/onboarding/onboarding_screen.dart';
 import 'package:islami_app/util/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +24,15 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => RadioMangerProvider()),
         ChangeNotifierProvider(create: (_) => MostRecentProvider()),
       ],
-      child: BlocProvider(
-        create: (_) => RadioViewModel(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => RadioViewModel(),
+          ),
+          BlocProvider(
+            create: (_) => TimeViewModel()..getPrayerTime(),
+          ),
+        ],
         child: MyApp(showOnboarding: !seenOnboarding),
       ),
     ),

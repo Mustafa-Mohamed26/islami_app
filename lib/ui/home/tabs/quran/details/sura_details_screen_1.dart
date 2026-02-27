@@ -19,10 +19,11 @@ class SuraDetailsScreen1 extends StatefulWidget {
 }
 
 class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
-  List<String> verses = [];
-  int? selectedIndex;
-  late MostRecentProvider mostRecentProvider;
+  List<String> verses = []; // List to hold the verses of the Sura
+  int? selectedIndex; // Variable to track the selected verse index
+  late MostRecentProvider mostRecentProvider; // Provider to manage the most recent Sura list
 
+  // Function to load the Sura file and extract verses
   void loadSuraFile(int index) async {
     String fileContent = await rootBundle.loadString(
       'assets/files/${index + 1}.txt',
@@ -40,14 +41,14 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
     });
   }
 
+  // Dispose the provider when the widget is disposed
   @override
   void dispose() {
     super.dispose();
     mostRecentProvider.getMostRecentSuraList();
   }
 
-
-
+  // Build the SuraDetailsScreen1 widget
   @override
   Widget build(BuildContext context) {
     int index = ModalRoute.of(context)?.settings.arguments as int;
@@ -57,68 +58,88 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
       loadSuraFile(index);
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          QuranResources.englishQuranList[index],
-          style: AppStyles.bold20Primary,
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.menu_book, size: 30),
-            tooltip: 'Go to Sura Details 2',
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                SuraDetailsScreen2.routeName,
-                arguments: index,
-              );
-            },
-          ),
-        ],
-      ),
+      appBar: _buildAppBar(context, index),
       body: Container(
         color: AppColor.blackBgColor,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(AppAssets.detailsLeftBg),
-                  Text(
-                    QuranResources.arabicQuranList[index],
-                    style: AppStyles.bold24Primary,
-                  ),
-                  Image.asset(AppAssets.detailsRightBg),
-                ],
-              ),
-            ),
-            Expanded(
-              child: verses.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : ListView.separated(
-                      itemCount: verses.length,
-                      itemBuilder: (context, verseIndex) {
-                        return SuraContentItem(
-                          suraContent: verses[verseIndex],
-                          index: verseIndex,
-                          isSelected: selectedIndex == verseIndex,
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = verseIndex;
-                            });
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: height * 0.02),
-                    ),
-            ),
-            Image.asset(AppAssets.mousqueBg),
+            _buildSuraHeader(index),
+            _buildVersesList(height),
+            _buildMosqueBackground(),
           ],
         ),
       ),
     );
+  }
+
+  // Build the AppBar for the SuraDetailsScreen1
+  PreferredSizeWidget _buildAppBar(BuildContext context, int index) {
+    return AppBar(
+      title: Text(
+        QuranResources.englishQuranList[index],
+        style: AppStyles.bold20Primary,
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.menu_book, size: 30),
+          tooltip: 'Go to Sura Details 2',
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              SuraDetailsScreen2.routeName,
+              arguments: index,
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  // Build the header for the SuraDetailsScreen1
+  Widget _buildSuraHeader(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(AppAssets.detailsLeftBg),
+          Text(
+            QuranResources.arabicQuranList[index],
+            style: AppStyles.bold24Primary,
+          ),
+          Image.asset(AppAssets.detailsRightBg),
+        ],
+      ),
+    );
+  }
+
+  // Build the list of verses for the SuraDetailsScreen1
+  Widget _buildVersesList(double height) {
+    return Expanded(
+      child: verses.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.separated(
+              itemCount: verses.length,
+              itemBuilder: (context, verseIndex) {
+                return SuraContentItem(
+                  suraContent: verses[verseIndex],
+                  index: verseIndex,
+                  isSelected: selectedIndex == verseIndex,
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = verseIndex;
+                    });
+                  },
+                );
+              },
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: height * 0.02),
+            ),
+    );
+  }
+
+  // Build the mosque background for the SuraDetailsScreen1
+  Widget _buildMosqueBackground() {
+    return Image.asset(AppAssets.mousqueBg);
   }
 }

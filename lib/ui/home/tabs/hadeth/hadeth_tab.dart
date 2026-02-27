@@ -5,21 +5,31 @@ import 'package:islami_app/ui/home/tabs/hadeth/hadeth_item.dart';
 class HadethTab extends StatelessWidget {
   const HadethTab({super.key});
 
+  // Build the HadethTab widget
   @override
   Widget build(BuildContext context) {
     var hight = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.only(bottom: hight * 0.03),
-      child: CarouselSlider(
-        options: CarouselOptions(height: hight * 0.66, enlargeCenterPage: true, enableInfiniteScroll: true),
-        items: List.generate(50, (index) => index + 1).map((index) {
-          return Builder(
-            builder: (BuildContext context) {
-              return HadethItem(index: index);
-            },
-          );
-        }).toList(),
+      child: _buildHadethSlider(hight),
+    );
+  }
+
+  // Build the Hadeth slider using CarouselSlider
+  Widget _buildHadethSlider(double hight) {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: hight * 0.66,
+        enlargeCenterPage: true,
+        enableInfiniteScroll: true,
       ),
+      items: List.generate(50, (index) => index + 1).map((index) {
+        return Builder(
+          builder: (BuildContext context) {
+            return HadethItem(index: index);
+          },
+        );
+      }).toList(),
     );
   }
 }

@@ -17,8 +17,9 @@ class SuraDetailsScreen2 extends StatefulWidget {
 
 class _SuraDetailsScreenState extends State<SuraDetailsScreen2> {
   //List<String> verses = [];
-  String suraContent = '';
+  String suraContent = ''; // Variable to hold the content of the Sura
 
+  // Function to load the Sura file and extract verses
   void loadSuraFile(int index) async {
     // Load the sura file content from assets
     // Assuming the files are named as 1.txt, 2.txt, ..., n.txt
@@ -30,7 +31,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen2> {
     );
     List<String> lines = fileContent.split('\n');
     for (var i = 0; i < lines.length; i++) {
-      lines[i]+= ' [${i+1}] ';
+      lines[i] += ' [${i + 1}] ';
     }
     suraContent = lines.join();
     //verses = lines;
@@ -44,6 +45,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen2> {
     });
   }
 
+  // Build the SuraDetailsScreen widget
   @override
   Widget build(BuildContext context) {
     int index = ModalRoute.of(context)?.settings.arguments as int;
@@ -51,44 +53,61 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen2> {
       loadSuraFile(index);
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          QuranResources.englishQuranList[index],
-          style: AppStyles.bold20Primary,
-        ),
-      ),
+      appBar: _buildAppBar(index),
       body: Container(
         color: AppColor.blackBgColor,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(AppAssets.detailsLeftBg),
-                  Text(
-                    QuranResources.arabicQuranList[index],
-                    style: AppStyles.bold24Primary,
-                  ),
-                  Image.asset(AppAssets.detailsRightBg),
-                ],
-              ),
-            ),
-            Expanded(
-              child: suraContent.isEmpty
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        color: AppColor.primaryColor,
-                      ),
-                    )
-                  : SingleChildScrollView(child: SuraContent(suraContent: suraContent))
-            ),
-             Image.asset(AppAssets.mousqueBg)
+            _buildSuraHeader(index),
+            _buildSuraContent(),
+            _buildMosqueBackground(),
           ],
-         
         ),
       ),
     );
+  }
+
+  // Build the AppBar for the SuraDetailsScreen
+  PreferredSizeWidget _buildAppBar(int index) {
+    return AppBar(
+      title: Text(
+        QuranResources.englishQuranList[index],
+        style: AppStyles.bold20Primary,
+      ),
+    );
+  }
+
+  // Build the header for the SuraDetailsScreen
+  Widget _buildSuraHeader(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(AppAssets.detailsLeftBg),
+          Text(
+            QuranResources.arabicQuranList[index],
+            style: AppStyles.bold24Primary,
+          ),
+          Image.asset(AppAssets.detailsRightBg),
+        ],
+      ),
+    );
+  }
+
+  // Build the content for the SuraDetailsScreen
+  Widget _buildSuraContent() {
+    return Expanded(
+      child: suraContent.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(color: AppColor.primaryColor),
+            )
+          : SingleChildScrollView(child: SuraContent(suraContent: suraContent)),
+    );
+  }
+
+  // Build the mosque background for the SuraDetailsScreen
+  Widget _buildMosqueBackground() {
+    return Image.asset(AppAssets.mousqueBg);
   }
 }

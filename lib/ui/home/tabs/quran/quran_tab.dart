@@ -17,7 +17,9 @@ class QuranTab extends StatefulWidget {
 }
 
 class _QuranTabState extends State<QuranTab> {
-  List<int> filterList = List.generate(114, (int index) => index);
+  List<int> filterList = List.generate(114, (int index) => index); // List to hold the filtered sura indices
+
+  /// Search by new text in the search field and update the filterList accordingly
   void searchByNewText(String newText) {
     List<int> filterSearchList = [];
     for (int i = 0; i < QuranResources.englishQuranList.length; i++) {
@@ -40,6 +42,7 @@ class _QuranTabState extends State<QuranTab> {
     setState(() {});
   }
 
+  // Build the QuranTab widget
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -53,63 +56,80 @@ class _QuranTabState extends State<QuranTab> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // Search Field Section
-          TextField(
-            onChanged: (newText) {
-              searchByNewText(newText);
-            },
-            style: AppStyles.bold16White,
-            cursorColor: AppColor.primaryColor,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
-              ),
-              prefixIcon: Image.asset(
-                AppAssets.iconQuran,
-                color: AppColor.primaryColor,
-              ),
-              hintText: 'Search in Quran',
-              hintStyle: AppStyles.bold16White,
-            ),
-          ),
+          _buildSearchField(),
           SizedBox(height: height * 0.02),
-          // Most Recently Read Section
-          MostRecentWidget(),
+          _buildMostRecentlyReadSection(),
           SizedBox(height: height * 0.01),
-          // Suras List Section
-          Text('Suras List', style: AppStyles.bold16White),
-          Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    // Save the last sura index to shared preferences
-                    saveNewSuraList(filterList[index]);
-                    // Navigate to Sura Details Screen with the selected sura index
-                    Navigator.of(context).pushNamed(
-                      SuraDetailsScreen1.routeName,
-                      arguments: filterList[index],
-                    );
-                  },
-                  child: SuraItem(index: filterList[index]),
-                );
-              },
-              separatorBuilder: (context, index) => Divider(
-                color: AppColor.whiteColor,
-                thickness: 2,
-                indent: width * 0.1,
-                endIndent: width * 0.05,
-              ),
-              itemCount: filterList.length,
-            ),
-          ),
+          _buildSurasListHeader(),
+          _buildSurasList(width),
         ],
+      ),
+    );
+  }
+
+  // Search Field Section
+  Widget _buildSearchField() {
+    return TextField(
+      onChanged: (newText) {
+        searchByNewText(newText);
+      },
+      style: AppStyles.bold16White,
+      cursorColor: AppColor.primaryColor,
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
+        ),
+        prefixIcon: Image.asset(
+          AppAssets.iconQuran,
+          color: AppColor.primaryColor,
+        ),
+        hintText: 'Search in Quran',
+        hintStyle: AppStyles.bold16White,
+      ),
+    );
+  }
+
+  // Most Recently Read Section
+  Widget _buildMostRecentlyReadSection() {
+    return MostRecentWidget();
+  }
+
+  // Suras List Section Header
+  Widget _buildSurasListHeader() {
+    return Text('Suras List', style: AppStyles.bold16White);
+  }
+
+  // Suras List Section
+  Widget _buildSurasList(double width) {
+    return Expanded(
+      child: ListView.separated(
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              // Save the last sura index to shared preferences
+              saveNewSuraList(filterList[index]);
+              // Navigate to Sura Details Screen with the selected sura index
+              Navigator.of(context).pushNamed(
+                SuraDetailsScreen1.routeName,
+                arguments: filterList[index],
+              );
+            },
+            child: SuraItem(index: filterList[index]),
+          );
+        },
+        separatorBuilder: (context, index) => Divider(
+          color: AppColor.whiteColor,
+          thickness: 2,
+          indent: width * 0.1,
+          endIndent: width * 0.05,
+        ),
+        itemCount: filterList.length,
       ),
     );
   }

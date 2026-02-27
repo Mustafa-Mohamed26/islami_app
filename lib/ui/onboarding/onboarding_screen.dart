@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:islami_app/ui/home/home_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:islami_app/ui/home/tabs/hadeth/hadeth_item.dart';
 import 'package:islami_app/util/app_assets.dart';
 import 'package:islami_app/util/app_color.dart';
 import 'package:islami_app/util/app_styles.dart';
