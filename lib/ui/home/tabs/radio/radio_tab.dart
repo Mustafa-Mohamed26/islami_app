@@ -27,44 +27,39 @@ class _RadioTabState extends State<RadioTab> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          // Tab Bar (NOT inside AppBar)
-          Container(
-            margin: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColor.blackBgColor,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: TabBar(
-              controller: _tabController,
-              labelColor: AppColor.blackColor,
-              unselectedLabelColor: AppColor.whiteColor,
-              indicator: BoxDecoration(
-                color: AppColor.primaryColor, 
-                borderRadius: BorderRadius.circular(16),
-              ),
-              tabs: [
-                Tab(child: Text("Radio")),
-                Tab(child: Text("Reciters")),
-              ],
-              indicatorSize: TabBarIndicatorSize.tab,
-              dividerColor: Colors.transparent,
-            ),
-          ),
+    return Scaffold(body: Column(children: [_buildTabBar(), _buildTabViews()]));
+  }
 
-          // Tab Views
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                RadioSection(),
-                RecitersSection(),
-              ],
-            ),
-          ),
+  Widget _buildTabBar() {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColor.blackBgColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: TabBar(
+        controller: _tabController,
+        labelColor: AppColor.blackColor,
+        unselectedLabelColor: AppColor.whiteColor,
+        indicator: BoxDecoration(
+          color: AppColor.primaryColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        tabs: const [
+          Tab(child: Text("Radio")),
+          Tab(child: Text("Reciters")),
         ],
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerColor: Colors.transparent,
+      ),
+    );
+  }
+
+  Widget _buildTabViews() {
+    return Expanded(
+      child: TabBarView(
+        controller: _tabController,
+        children: const [RadioSection(), RecitersSection()],
       ),
     );
   }

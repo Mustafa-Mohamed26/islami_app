@@ -52,40 +52,48 @@ class RadioItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min, // Prevents unnecessary stretching
           children: [
-            Flexible(
-              child: Text(
-                name,
-                style: AppStyles.bold20Black,
-                overflow: TextOverflow.ellipsis, // Prevent text overflow
-                textAlign: TextAlign.center,
-              ),
-            ),
+            _buildNameText(),
             SizedBox(height: height * 0.005),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(width: width * 0.1),
-                IconButton(
-                  onPressed: onPlay,
-                  icon: Icon(
-                    isPlaying ? Icons.pause : Icons.play_arrow_rounded,
-                    size: 50,
-                    color: AppColor.blackColor,
-                  ),
-                ),
-                IconButton(
-                  onPressed: onMute,
-                  icon: Icon(
-                    isMuted ? Icons.volume_off : Icons.volume_up,
-                    size: 30,
-                    color: AppColor.blackColor,
-                  ),
-                ),
-              ],
-            ),
+            _buildControllersRow(width),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildNameText() {
+    return Flexible(
+      child: Text(
+        name,
+        style: AppStyles.bold20Black,
+        overflow: TextOverflow.ellipsis, // Prevent text overflow
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  Widget _buildControllersRow(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(width: width * 0.1),
+        IconButton(
+          onPressed: onPlay,
+          icon: Icon(
+            isPlaying ? Icons.pause : Icons.play_arrow_rounded,
+            size: 50,
+            color: AppColor.blackColor,
+          ),
+        ),
+        IconButton(
+          onPressed: onMute,
+          icon: Icon(
+            isMuted ? Icons.volume_off : Icons.volume_up,
+            size: 30,
+            color: AppColor.blackColor,
+          ),
+        ),
+      ],
     );
   }
 }

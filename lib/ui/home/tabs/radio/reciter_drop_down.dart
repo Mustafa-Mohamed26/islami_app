@@ -18,18 +18,22 @@ class ReciterDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: DropdownButton<Reciters>(
-        value: selectedReciter,
-        hint: Text("Choose a reciter", style: AppStyles.bold20Primary),
-        isExpanded: true,
-        items: reciters.map((reciter) {
-          return DropdownMenuItem(
-            value: reciter,
-            child: Text(reciter.name ?? "", style: AppStyles.bold20Primary),
-          );
-        }).toList(),
-        onChanged: onChanged,
-      ),
+      child: _buildDropdownBehavior(),
+    );
+  }
+
+  Widget _buildDropdownBehavior() {
+    return DropdownButton<Reciters>(
+      value: selectedReciter,
+      hint: Text("Choose a reciter", style: AppStyles.bold20Primary),
+      isExpanded: true,
+      items: reciters.map((reciter) {
+        return DropdownMenuItem(
+          value: reciter,
+          child: Text(reciter.name ?? "", style: AppStyles.bold20Primary),
+        );
+      }).toList(),
+      onChanged: onChanged,
     );
   }
 }
