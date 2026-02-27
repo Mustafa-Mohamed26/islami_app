@@ -44,9 +44,6 @@ class ApiManager {
 
       var response = await http.get(url);
 
-      print("Status Code: ${response.statusCode}");
-      print("Body: ${response.body}");
-
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         return PrayerResponseModel.fromJson(json);
@@ -54,7 +51,6 @@ class ApiManager {
         throw Exception("Failed to load prayer times");
       }
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

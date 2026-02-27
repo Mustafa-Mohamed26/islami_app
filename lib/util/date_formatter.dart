@@ -1,94 +1,78 @@
 import 'package:intl/intl.dart';
 import 'package:islami_app/model/prayer_response_model.dart';
 
+/// Mixin applied to Gregorian and Hijri date models that expose
+/// day / month / year fields for [DateFormatter.formateDate].
 mixin Formattable {
   String? get day;
   Month? get month;
   String? get year;
 }
 
+/// Utility class for formatting dates and computing prayer-time countdowns.
+///
+/// All methods use [DateTime.now()] at call-time so countdowns are always
+/// accurate (avoids the stale-static-field bug).
 class DateFormatter {
-  static DateTime _now = DateTime.now();
-  static String formateDate(Formattable formattableMixin) {
-    return '${formattableMixin.day} ${formattableMixin.month!.en!.substring(0, 3)}\n ${formattableMixin.year}';
+  DateFormatter._(); // non-instantiable
+
+  /// Returns a two-line string: "15 Feb\n 2026" for any [Formattable] date.
+  static String formateDate(Formattable date) {
+    return '${date.day} ${date.month!.en!.substring(0, 3)}\n ${date.year}';
   }
 
+  /// Sorts prayer-time entries chronologically relative to *now*, so the next
+  /// upcoming prayer always appears first in the carousel.
   static Map<String, dynamic> sortPrayerTimes(
     Map<String, dynamic> prayerTimes,
   ) {
-    var sortedEntries = prayerTimes.entries.toList()
+    final now = DateTime.now();
+    final sorted = prayerTimes.entries.toList()
       ..sort((a, b) {
-        // Parse the time strings into DateTime objects
-        DateTime timeA = DateFormat("HH:mm").parse(a.value);
-        DateTime timeB = DateFormat("HH:mm").parse(b.value);
-
-        // Compare the DateTime objects
-        DateTime dateTimeA = DateTime(
-          _now.year,
-          _now.month,
-          _now.day,
-          timeA.hour,
-          timeA.minute,
-        );
-
-        // Compare the DateTime objects
-        DateTime dateTimeB = DateTime(
-          _now.year,
-          _now.month,
-          _now.day,
-          timeB.hour,
-          timeB.minute,
-        );
-
-        // Check if the DateTime objects are before or at the same moment as now
-        if (dateTimeA.isBefore(_now) || dateTimeA.isAtSameMomentAs(_now)) {
-          dateTimeA = dateTimeA.add(Duration(days: 1));
-        }
-        if (dateTimeB.isBefore(_now) || dateTimeB.isAtSameMomentAs(_now)) {
-          dateTimeB = dateTimeB.add(Duration(days: 1));
-        }
-
-        return dateTimeA.compareTo(dateTimeB);
+        final timeA = _toTodayDateTime(a.value as String, now);
+        final timeB = _toTodayDateTime(b.value as String, now);
+        final adjA = timeA.isBefore(now)
+            ? timeA.add(const Duration(days: 1))
+            : timeA;
+        final adjB = timeB.isBefore(now)
+            ? timeB.add(const Duration(days: 1))
+            : timeB;
+        return adjA.compareTo(adjB);
       });
-
-    return Map<String, dynamic>.fromEntries(sortedEntries);
+    return Map<String, dynamic>.fromEntries(sorted);
   }
 
-  static Map<String, Duration> getNextPrayerCountDown(
+  /// Returns the name and remaining [Duration] for the next upcoming prayer.
+  ///
+  /// Returns the first entry of the sorted map, which is always the soonest
+  /// upcoming prayer because [sortPrayerTimes] already orders them correctly.
+  static MapEntry<String, Duration> getNextPrayer(
     Map<String, dynamic> prayerTimes,
   ) {
-    // Get the current time
-    Map<String, Duration> timeDifference = {};
+    final now = DateTime.now();
+    final sorted = sortPrayerTimes(prayerTimes);
+    final entry = sorted.entries.first;
+    final prayerDt = _toTodayDateTime(entry.value as String, now);
+    final adjusted = prayerDt.isBefore(now)
+        ? prayerDt.add(const Duration(days: 1))
+        : prayerDt;
+    return MapEntry(entry.key, adjusted.difference(now));
+  }
 
-    // Iterate through the prayer times and calculate the difference from now
-    prayerTimes.forEach((prayName, prayTimeString) {
-      DateTime prayerTime = DateFormat("HH:mm").parse(prayTimeString);
-      DateTime prayerDateTime = DateTime(
-        _now.year,
-        _now.month,
-        _now.day,
-        prayerTime.hour,
-        prayerTime.minute,
-      );
+  // ── Private ─────────────────────────────────────────────────────────────────
 
-      // If the prayer time is before or at the same moment as now, add one day to it
-      if (prayerDateTime.isBefore(_now) ||
-          prayerDateTime.isAtSameMomentAs(_now)) {
-        prayerDateTime = prayerDateTime.add(Duration(days: 1));
-      }
-
-      // Calculate the difference between the prayer time and now
-      Duration difference = prayerDateTime.difference(_now);
-      timeDifference[prayName] = difference;
-    });
-
-    return timeDifference;
+  static DateTime _toTodayDateTime(String timeStr, DateTime now) {
+    final parsed = DateFormat('HH:mm').parse(timeStr);
+    return DateTime(now.year, now.month, now.day, parsed.hour, parsed.minute);
   }
 }
 
+/// Converts 24-hour time strings to a 12-hour display format.
 class TimeConverter {
+  TimeConverter._(); // non-instantiable
+
   static String to12Hour(String time) {
-    DateTime dateTime = DateFormat("HH:mm").parse(time);
-    return DateFormat("hh:mm\n a").format(dateTime);
+    final dt = DateFormat('HH:mm').parse(time);
+    return DateFormat('hh:mm\n a').format(dt);
   }
 }
