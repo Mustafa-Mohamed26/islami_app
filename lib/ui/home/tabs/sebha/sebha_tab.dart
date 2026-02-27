@@ -59,27 +59,36 @@ class _SebhaTabState extends State<SebhaTab>
     var height = MediaQuery.of(context).size.height;
     return Column(
       children: [
-        Text("سَبِّحِ اسْمَ رَبِّكَ الأعلى ", style: AppStyles.bold36white),
+        _buildHeaderTitle(),
         Stack(
           alignment: Alignment.center,
-          children: [
-            GestureDetector(
-              onTap: onSebhaTap,
-              child: AnimatedRotation(
-                turns: turns,
-                duration: const Duration(milliseconds: 300),
-                child: Image.asset(AppAssets.sebha),
-              ),
-            ),
-            Column(
-              children: [
-                SizedBox(height: height * 0.12),
-                Text(tasbeehList[textIndex], style: AppStyles.bold36white),
-                Text("$counter", style: AppStyles.bold36white),
-              ],
-            ),
-          ],
+          children: [_buildInteractiveSebha(), _buildCounterDisplay(height)],
         ),
+      ],
+    );
+  }
+
+  Widget _buildHeaderTitle() {
+    return Text("سَبِّحِ اسْمَ رَبِّكَ الأعلى ", style: AppStyles.bold36white);
+  }
+
+  Widget _buildInteractiveSebha() {
+    return GestureDetector(
+      onTap: onSebhaTap,
+      child: AnimatedRotation(
+        turns: turns,
+        duration: const Duration(milliseconds: 300),
+        child: Image.asset(AppAssets.sebha),
+      ),
+    );
+  }
+
+  Widget _buildCounterDisplay(double height) {
+    return Column(
+      children: [
+        SizedBox(height: height * 0.12),
+        Text(tasbeehList[textIndex], style: AppStyles.bold36white),
+        Text("$counter", style: AppStyles.bold36white),
       ],
     );
   }

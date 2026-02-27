@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:islami_app/util/app_assets.dart';
 import 'package:islami_app/util/app_color.dart';
 import 'package:islami_app/util/app_styles.dart';
 

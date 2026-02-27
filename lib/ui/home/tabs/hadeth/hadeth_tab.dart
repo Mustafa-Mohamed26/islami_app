@@ -10,16 +10,24 @@ class HadethTab extends StatelessWidget {
     var hight = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.only(bottom: hight * 0.03),
-      child: CarouselSlider(
-        options: CarouselOptions(height: hight * 0.66, enlargeCenterPage: true, enableInfiniteScroll: true),
-        items: List.generate(50, (index) => index + 1).map((index) {
-          return Builder(
-            builder: (BuildContext context) {
-              return HadethItem(index: index);
-            },
-          );
-        }).toList(),
+      child: _buildHadethSlider(hight),
+    );
+  }
+
+  Widget _buildHadethSlider(double hight) {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: hight * 0.66,
+        enlargeCenterPage: true,
+        enableInfiniteScroll: true,
       ),
+      items: List.generate(50, (index) => index + 1).map((index) {
+        return Builder(
+          builder: (BuildContext context) {
+            return HadethItem(index: index);
+          },
+        );
+      }).toList(),
     );
   }
 }
