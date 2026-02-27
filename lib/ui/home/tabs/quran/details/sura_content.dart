@@ -5,6 +5,7 @@ class SuraContent extends StatelessWidget {
   String suraContent;
   SuraContent({super.key, required this.suraContent});
 
+  // Build the SuraContent widget
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,6 +14,7 @@ class SuraContent extends StatelessWidget {
     );
   }
 
+  // Build the text content for the SuraContent widget
   Widget _buildTextContent() {
     return Text(
       suraContent,

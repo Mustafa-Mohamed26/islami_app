@@ -18,11 +18,12 @@ class RecitersSection extends StatefulWidget {
 }
 
 class _RecitersSectionState extends State<RecitersSection> {
-  int? playingIndex;
-  int? mutedIndex;
-  Reciters? selectedReciter;
-  List<Map<String, String>>? currentSurahs;
+  int? playingIndex; // Variable to track the currently playing radio station index
+  int? mutedIndex; // Variable to track the currently muted radio station index
+  Reciters? selectedReciter; // Variable to store the selected reciter
+  List<Map<String, String>>? currentSurahs; // List to store the surahs of the selected reciter
 
+  // Called when the widget is removed from the widget tree
   @override
   void deactivate() {
     final radioManager = Provider.of<RadioMangerProvider>(
@@ -34,12 +35,14 @@ class _RecitersSectionState extends State<RecitersSection> {
     super.deactivate();
   }
 
+  // Called when the widget is inserted into the widget tree
   @override
   void initState() {
     super.initState();
     BlocProvider.of<RadioViewModel>(context).getReciters();
   }
 
+  // Build the RecitersSection widget
   @override
   Widget build(BuildContext context) {
     final radioManager = Provider.of<RadioMangerProvider>(context);
@@ -65,14 +68,17 @@ class _RecitersSectionState extends State<RecitersSection> {
     );
   }
 
+  // Build the loading indicator widget
   Widget _buildLoading() {
     return const Center(child: CircularProgressIndicator());
   }
 
+  // Build the error message widget
   Widget _buildError(String errorMsg) {
     return Center(child: Text(errorMsg, style: AppStyles.bold20Primary));
   }
 
+  // Build the reciters content widget
   Widget _buildRecitersContent(
     List<Reciters>? reciters,
     RadioViewModel viewModel,
@@ -92,6 +98,7 @@ class _RecitersSectionState extends State<RecitersSection> {
     );
   }
 
+  // Handle reciter selection and update the state accordingly
   void _onReciterSelected(Reciters? value, RadioViewModel viewModel) {
     setState(() {
       selectedReciter = value;
@@ -101,6 +108,7 @@ class _RecitersSectionState extends State<RecitersSection> {
     });
   }
 
+  // Handle play/pause actions for the radio stations
   Widget _buildSurahSelectionState(RadioMangerProvider radioManager) {
     if (selectedReciter == null) {
       return Center(
@@ -120,6 +128,7 @@ class _RecitersSectionState extends State<RecitersSection> {
     return _buildSurahsList(radioManager);
   }
 
+  // Build the list of radio stations
   Widget _buildSurahsList(RadioMangerProvider radioManager) {
     return Expanded(
       child: ListView.builder(
@@ -148,6 +157,7 @@ class _RecitersSectionState extends State<RecitersSection> {
     );
   }
 
+  // Handle play/pause actions for the radio stations
   void _handlePlayPause(
     int index,
     String url,
@@ -162,6 +172,7 @@ class _RecitersSectionState extends State<RecitersSection> {
     }
   }
 
+  // Handle mute/unmute actions for the radio stations
   void _handleMuteUnmute(
     int index,
     String url,

@@ -15,9 +15,10 @@ class RadioSection extends StatefulWidget {
 }
 
 class _RadioSectionState extends State<RadioSection> {
-  int? playingIndex;
-  int? mutedIndex;
+  int? playingIndex; // Variable to track the currently playing radio station index
+  int? mutedIndex; // Variable to track the currently muted radio station index
 
+  // Called when the widget is removed from the widget tree
   @override
   void deactivate() {
     // Called when the widget is removed from the widget tree (e.g. when user leaves the tab)
@@ -30,12 +31,14 @@ class _RadioSectionState extends State<RadioSection> {
     super.deactivate();
   }
 
+  // Called when the widget is inserted into the widget tree
   @override
   void initState() {
     super.initState();
     BlocProvider.of<RadioViewModel>(context).getRadio();
   }
 
+  // Build the RadioSection widget
   @override
   Widget build(BuildContext context) {
     final radioManager = Provider.of<RadioMangerProvider>(context);
@@ -61,14 +64,17 @@ class _RadioSectionState extends State<RadioSection> {
     );
   }
 
+  // Build the loading indicator widget
   Widget _buildLoading() {
     return const Center(child: CircularProgressIndicator());
   }
 
+  // Build the error message widget
   Widget _buildError(String errorMsg) {
     return Center(child: Text(errorMsg, style: AppStyles.bold20Primary));
   }
 
+  // Build the list of radio stations
   Widget _buildRadiosList(List radios, RadioMangerProvider radioManager) {
     return Expanded(
       child: ListView.builder(
@@ -98,6 +104,7 @@ class _RadioSectionState extends State<RadioSection> {
     );
   }
 
+  // Handle play/pause and mute/unmute actions
   void _handlePlayPause(
     int index,
     String? url,
@@ -124,6 +131,7 @@ class _RadioSectionState extends State<RadioSection> {
     }
   }
 
+  // Handle play/pause and mute/unmute actions
   void _handleMuteUnmute(
     int index,
     String? url,

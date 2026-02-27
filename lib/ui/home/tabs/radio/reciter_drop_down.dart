@@ -14,6 +14,7 @@ class ReciterDropdown extends StatelessWidget {
     required this.onChanged,
   });
 
+  // Build the ReciterDropdown widget
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,6 +23,7 @@ class ReciterDropdown extends StatelessWidget {
     );
   }
 
+  // Build the dropdown behavior
   Widget _buildDropdownBehavior() {
     return DropdownButton<Reciters>(
       value: selectedReciter,

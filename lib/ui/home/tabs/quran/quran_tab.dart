@@ -17,7 +17,9 @@ class QuranTab extends StatefulWidget {
 }
 
 class _QuranTabState extends State<QuranTab> {
-  List<int> filterList = List.generate(114, (int index) => index);
+  List<int> filterList = List.generate(114, (int index) => index); // List to hold the filtered sura indices
+
+  /// Search by new text in the search field and update the filterList accordingly
   void searchByNewText(String newText) {
     List<int> filterSearchList = [];
     for (int i = 0; i < QuranResources.englishQuranList.length; i++) {
@@ -40,6 +42,7 @@ class _QuranTabState extends State<QuranTab> {
     setState(() {});
   }
 
+  // Build the QuranTab widget
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

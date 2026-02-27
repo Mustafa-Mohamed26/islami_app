@@ -17,6 +17,7 @@ class HadethItem extends StatefulWidget {
 class _HadethItemState extends State<HadethItem> {
   HadethModel? hadethModel;
 
+  // Function to load the hadeth file and extract title and content
   void loadHadethFile(int index) async {
     // Load the hadeth file from assets
     String fileContent = await rootBundle.loadString(
@@ -36,12 +37,14 @@ class _HadethItemState extends State<HadethItem> {
     }
   }
 
+  // Load the hadeth file when the widget is initialized
   @override
   void initState() {
     super.initState();
     loadHadethFile(widget.index);
   }
 
+  // Build the HadethItem widget
   @override
   Widget build(BuildContext context) {
     var hight = MediaQuery.of(context).size.height;
@@ -67,6 +70,7 @@ class _HadethItemState extends State<HadethItem> {
     );
   }
 
+  // Build the header of the HadethItem
   Widget _buildHeader(double width, double hight) {
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -90,6 +94,7 @@ class _HadethItemState extends State<HadethItem> {
     );
   }
 
+  // Build the content of the HadethItem
   Widget _buildContent() {
     return Expanded(
       child: SingleChildScrollView(
@@ -105,6 +110,7 @@ class _HadethItemState extends State<HadethItem> {
     );
   }
 
+  // Build the mosque image at the bottom of the HadethItem
   Widget _buildMosqueImage() {
     return Image.asset(AppAssets.hadethMosque);
   }

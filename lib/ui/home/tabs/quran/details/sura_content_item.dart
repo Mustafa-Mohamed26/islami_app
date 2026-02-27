@@ -18,6 +18,7 @@ class SuraContentItem extends StatelessWidget {
     required this.onTap,
   });
 
+  // Build the SuraContentItem widget
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -28,6 +29,7 @@ class SuraContentItem extends StatelessWidget {
     );
   }
 
+  // Build the container for each Sura content item
   Widget _buildItemContainer(double width, double height) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: width * 0.04),
@@ -41,6 +43,7 @@ class SuraContentItem extends StatelessWidget {
     );
   }
 
+  // Build the text content for each Sura content item
   Widget _buildTextContent() {
     return Text(
       "$suraContent [${index + 1}]",

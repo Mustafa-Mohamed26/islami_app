@@ -7,6 +7,7 @@ class SuraItem extends StatelessWidget {
   int index;
   SuraItem({super.key, required this.index});
 
+  // Build the SuraItem widget
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -21,6 +22,7 @@ class SuraItem extends StatelessWidget {
     );
   }
 
+  // Build the Sura number widget with a background image
   Widget _buildSuraNumber() {
     return Stack(
       alignment: Alignment.center,
@@ -31,6 +33,7 @@ class SuraItem extends StatelessWidget {
     );
   }
 
+  // Build the Sura details widget showing the English name and number of verses
   Widget _buildSuraDetails() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,6 +50,7 @@ class SuraItem extends StatelessWidget {
     );
   }
 
+  // Build the Sura Arabic name widget
   Widget _buildSuraArabicName() {
     return Text(
       QuranResources.arabicQuranList[index],

@@ -19,10 +19,11 @@ class SuraDetailsScreen1 extends StatefulWidget {
 }
 
 class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
-  List<String> verses = [];
-  int? selectedIndex;
-  late MostRecentProvider mostRecentProvider;
+  List<String> verses = []; // List to hold the verses of the Sura
+  int? selectedIndex; // Variable to track the selected verse index
+  late MostRecentProvider mostRecentProvider; // Provider to manage the most recent Sura list
 
+  // Function to load the Sura file and extract verses
   void loadSuraFile(int index) async {
     String fileContent = await rootBundle.loadString(
       'assets/files/${index + 1}.txt',
@@ -40,12 +41,14 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
     });
   }
 
+  // Dispose the provider when the widget is disposed
   @override
   void dispose() {
     super.dispose();
     mostRecentProvider.getMostRecentSuraList();
   }
 
+  // Build the SuraDetailsScreen1 widget
   @override
   Widget build(BuildContext context) {
     int index = ModalRoute.of(context)?.settings.arguments as int;
@@ -69,6 +72,7 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
     );
   }
 
+  // Build the AppBar for the SuraDetailsScreen1
   PreferredSizeWidget _buildAppBar(BuildContext context, int index) {
     return AppBar(
       title: Text(
@@ -91,6 +95,7 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
     );
   }
 
+  // Build the header for the SuraDetailsScreen1
   Widget _buildSuraHeader(int index) {
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -108,6 +113,7 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
     );
   }
 
+  // Build the list of verses for the SuraDetailsScreen1
   Widget _buildVersesList(double height) {
     return Expanded(
       child: verses.isEmpty
@@ -132,6 +138,7 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
     );
   }
 
+  // Build the mosque background for the SuraDetailsScreen1
   Widget _buildMosqueBackground() {
     return Image.asset(AppAssets.mousqueBg);
   }

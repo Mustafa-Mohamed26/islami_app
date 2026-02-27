@@ -22,6 +22,7 @@ class RadioItem extends StatelessWidget {
     required this.name,
   });
 
+  // Build the RadioItem widget
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -61,6 +62,7 @@ class RadioItem extends StatelessWidget {
     );
   }
 
+  // Build the name text widget for the radio item
   Widget _buildNameText() {
     return Flexible(
       child: Text(
@@ -72,6 +74,7 @@ class RadioItem extends StatelessWidget {
     );
   }
 
+  // Build the controllers row with play/pause and mute/unmute buttons
   Widget _buildControllersRow(double width) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

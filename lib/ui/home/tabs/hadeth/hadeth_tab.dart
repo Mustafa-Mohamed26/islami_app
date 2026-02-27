@@ -5,6 +5,7 @@ import 'package:islami_app/ui/home/tabs/hadeth/hadeth_item.dart';
 class HadethTab extends StatelessWidget {
   const HadethTab({super.key});
 
+  // Build the HadethTab widget
   @override
   Widget build(BuildContext context) {
     var hight = MediaQuery.of(context).size.height;
@@ -14,6 +15,7 @@ class HadethTab extends StatelessWidget {
     );
   }
 
+  // Build the Hadeth slider using CarouselSlider
   Widget _buildHadethSlider(double hight) {
     return CarouselSlider(
       options: CarouselOptions(

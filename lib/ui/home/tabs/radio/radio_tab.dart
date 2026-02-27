@@ -11,25 +11,29 @@ class RadioTab extends StatefulWidget {
 }
 
 class _RadioTabState extends State<RadioTab> with TickerProviderStateMixin {
-  late TabController _tabController;
+  late TabController _tabController; // Controller to manage the tabs in the RadioTab widget
 
+  // Initialize the state and set up the TabController
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this); // <-- use 'this'
   }
 
+  // Dispose the TabController when the widget is disposed
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
 
+  // Build the RadioTab widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Column(children: [_buildTabBar(), _buildTabViews()]));
   }
 
+  // Build the TabBar widget
   Widget _buildTabBar() {
     return Container(
       margin: const EdgeInsets.all(16),
@@ -55,6 +59,7 @@ class _RadioTabState extends State<RadioTab> with TickerProviderStateMixin {
     );
   }
 
+  // Build the TabBarView widget to display the content of each tab
   Widget _buildTabViews() {
     return Expanded(
       child: TabBarView(

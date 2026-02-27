@@ -16,7 +16,9 @@ class MostRecentWidget extends StatefulWidget {
 }
 
 class _MostRecentWidgetState extends State<MostRecentWidget> {
-  late MostRecentProvider mostRecentProvider;
+  late MostRecentProvider mostRecentProvider; // Provider to manage the most recent Sura list
+
+  // Initialize the state and load the most recent sura list
   @override
   void initState() {
     super.initState();
@@ -26,6 +28,7 @@ class _MostRecentWidgetState extends State<MostRecentWidget> {
     });
   }
 
+  // Build the widget
   @override
   Widget build(BuildContext context) {
     mostRecentProvider = Provider.of<MostRecentProvider>(context);
@@ -45,10 +48,12 @@ class _MostRecentWidgetState extends State<MostRecentWidget> {
     );
   }
 
+  // Build the header for the Most Recent Widget
   Widget _buildHeader() {
     return Text('Most Recently Read', style: AppStyles.bold16White);
   }
 
+  // Build the list of recent Sura items
   Widget _buildRecentList(double width, double height) {
     return SizedBox(
       height: height * 0.16,
@@ -64,6 +69,7 @@ class _MostRecentWidgetState extends State<MostRecentWidget> {
     );
   }
 
+  // Build each recent item in the list
   Widget _buildRecentItem(BuildContext context, int index, double width) {
     int suraIndex = mostRecentProvider.mostRecentList[index];
     return InkWell(
