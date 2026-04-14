@@ -6,7 +6,6 @@
   
   [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
   [![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
-  [![Clean Architecture](https://img.shields.io/badge/Architecture-MVVM-orange?style=for-the-badge)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
   [![State Management](https://img.shields.io/badge/State-BLoC%20%2B%20Provider-blueviolet?style=for-the-badge)](https://pub.dev/packages/flutter_bloc)
 
 </div>
@@ -15,7 +14,7 @@
 
 ## 🌟 Overview
 
-**Islami** is a premium, modern, and high-performance Flutter application designed to provide a seamless spiritual experience for Muslims. Built with a focus on **Visual Excellence** and **Clean Architecture**, it combines essential Islamic tools into a single, beautiful interface.
+**Islami** is a premium, modern, and high-performance Flutter application designed to provide a seamless spiritual experience for Muslims. Built with a focus on **Visual Excellence**, it combines essential Islamic tools into a single, beautiful interface.
 
 Whether you're reciting the Holy Quran, keeping track of your daily Azkar, or listening to live spiritual radio, Islami provides a serene and intuitive environment to help you stay connected to your faith.
 
